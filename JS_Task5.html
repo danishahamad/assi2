@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5</title>
+    <style>
+        #contact label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+        }
+        #contact_submit {
+            padding-left: 100px;
+        }
+        #contact div {
+            margin-top: 1em;
+        }
+        textarea {
+            vertical-align: top;
+            height: 5em;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="contact" method="post" action="">
+        <!-- Name -->
+        <div>
+            <label for="contact_name">Name:</label>
+            <input type="text" id="contact_name" name="name">
+            <span class="error" id="name_error"></span>
+        </div>
+        <!-- Email -->
+        <div>
+            <label for="contact_email">Email:</label>
+            <input type="email" id="contact_email" name="email">
+            <span class="error" id="email_error"></span>
+        </div>
+        <!-- Website -->
+        <div>
+            <label for="contact_website">Website:</label>
+            <input type="url" id="contact_website" name="website">
+            <span class="error" id="website_error"></span>
+        </div>
+        <!-- Message -->
+        <div>
+            <label for="contact_message">Message:</label>
+            <textarea id="contact_message" name="message"></textarea>
+            <span class="error" id="message_error"></span>
+        </div>
+        <!-- Submit Button -->
+        <div id="contact_submit">
+            <button type="button" id="submit_button">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        const form = document.getElementById('contact');
+        const submitButton = document.getElementById('submit_button');
+
+        submitButton.addEventListener('click', function () {
+            // Reset error messages
+            document.getElementById('name_error').textContent = '';
+            document.getElementById('email_error').textContent = '';
+            document.getElementById('website_error').textContent = '';
+            document.getElementById('message_error').textContent = '';
+
+            // Validate Name
+            const name = document.getElementById('contact_name').value;
+            if (name.trim() === '') {
+                document.getElementById('name_error').textContent = 'This field is required';
+            }
+
+            // Validate Email
+            const email = document.getElementById('contact_email').value;
+            const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+            if (!email.match(emailRegex)) {
+                document.getElementById('email_error').textContent = 'A valid email address is required';
+            }
+
+            // Validate Website
+            const website = document.getElementById('contact_website').value;
+            const urlRegex = /^(https?|ftp|torrent|image|irc|gopher|file|ldap|data|telnet|ssh|sftp|scp):\/\/([^\s/$.?#].[^\s]*)$/i;
+            if (!website.match(urlRegex)) {
+                document.getElementById('website_error').textContent = 'A valid URL is required';
+            }
+
+            // Validate Message
+            const message = document.getElementById('contact_message').value;
+            if (message.trim() === '') {
+                document.getElementById('message_error').textContent = 'This field is required';
+            }
+        });
+    </script>
+</body>
+</html>

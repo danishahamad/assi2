@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 8</title>
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to right, #af4c84, #e6e896);
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .heading {
+            color: blue;
+            font-size: xx-large;
+            font-weight: bolder;
+            margin-bottom: 10px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .save-button {
+            display: block;
+            margin: 20px auto; /* Center the button and add spacing from the table */
+            text-align: center;
+        }
+
+        .right-align {
+            text-align: right;
+        }
+
+        /* Add red color to error messages */
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form>
+            <table>
+                <caption class="heading">Registration form</caption>
+                <tr>
+                    <td><label for="fn"><b>First Name</b></label></td>
+                    <td><input type="text" name="fn" id="fn" placeholder="Enter your first name" /></td>
+                    <td class="error" id="fnError"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="ln"><b>Last Name</b></label></td>
+                    <td><input type="text" name="ln" id="ln" placeholder="Enter your last name" /></td>
+                    <td class="error" id="lnError"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="em"><b>Email</b></label></td>
+                    <td><input type="email" name="em" id="em" placeholder="Enter your email" /></td>
+                    <td class="error" id="emailError"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="pass"><b>Password</b></label></td>
+                    <td><input type="password" name="pass" id="pass" placeholder="Enter the password" /></td>
+                    <td class="error" id="passwordError"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="pass1"><b>Re-enter Password</b></label></td>
+                    <td><input type="password" name="pass1" id="pass1" placeholder="Re-Enter the password" /></td>
+                    <td class="error" id="rePasswordError"></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2"><label><b>Gender:</b></label></td>
+                    <td><input type="radio" name="gender" />Male</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td><input type="radio" name="gender" />Female</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td><label for="age"><b>Age</b></label></td>
+                    <td><input type="number" name="age" id="age" placeholder="Enter your age" /></td>
+                    <td class="error" id="ageError"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="pho"><b>Phone Number</b></label></td>
+                    <td><input type="number" name="pho" id="pho" placeholder="Enter your Phone Number" /></td>
+                    <td class="error" id="phoneNumberError"></td>
+                </tr>
+
+                <tr>
+                    <td><label><b>Address</b></label></td>
+                    <td><textarea rows="3" cols="50" maxlength="100" name="address" id="address" placeholder="Enter your address (less than 100 characters)"></textarea></td>
+                    <td class="error" id="addressError"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="st"><b>State</b></label></td>
+                    <td><input type="text" name="st" id="st" placeholder="Enter your state" /></td>
+                    <td class="error" id="stateError"></td>
+                </tr>
+
+                <tr>
+                    <td><label><b>Country</b></label></td>
+                    <td>
+                        <select>
+                            <option>Choose your country</option>
+                            <option>India</option>
+                            <option>Japan</option>
+                            <option>Russia</option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td><label><b>Languages known</b></label></td>
+                    <td>
+                        <input type="checkbox" />English
+                        <input type="checkbox" />Kannada
+                        <input type="checkbox" />Hindi
+                        <input type="checkbox" />Telugu
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input type="checkbox" id="agree" name="agree" required>
+                        <label for="agree">Hereby I declare all the given details are true</label>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="right-align">
+                        <p style="margin: 0;">Log in to <a href="https://ethnus.com/">Ethnus</a> website</p>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+            <div class="save-button">
+                <input type="submit" value="REGISTER" />
+            </div>
+        </form>
+    </div>
+    <script>
+        // JavaScript for form validation
+
+        const firstName = document.getElementById('fn');
+        const lastName = document.getElementById('ln');
+        const email = document.getElementById('em');
+        const password = document.getElementById('pass');
+        const rePassword = document.getElementById('pass1');
+        const age = document.getElementById('age');
+        const phoneNumber = document.getElementById('pho');
+        const address = document.getElementById('address');
+        const state = document.getElementById('st');
+
+        const fnError = document.getElementById('fnError');
+        const lnError = document.getElementById('lnError');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const rePasswordError = document.getElementById('rePasswordError');
+        const ageError = document.getElementById('ageError');
+        const phoneNumberError = document.getElementById('phoneNumberError');
+        const addressError = document.getElementById('addressError');
+        const stateError = document.getElementById('stateError');
+
+        firstName.addEventListener('input', () => {
+            if (firstName.value.length < 4) {
+                fnError.textContent = 'POOR (less than 4 characters)';
+            } else {
+                fnError.textContent = '';
+            }
+        });
+
+        lastName.addEventListener('input', () => {
+            if (lastName.value.length < 4) {
+                lnError.textContent = 'POOR (less than 4 characters)';
+            } else {
+                lnError.textContent = '';
+            }
+        });
+
+        email.addEventListener('input', () => {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email.value)) {
+                emailError.textContent = 'POOR (invalid email)';
+            } else {
+                emailError.textContent = '';
+            }
+        });
+
+        password.addEventListener('input', () => {
+            if (password.value.length < 8) {
+                passwordError.textContent = 'POOR (less than 8 characters)';
+            } else {
+                passwordError.textContent = '';
+            }
+        });
+
+        rePassword.addEventListener('input', () => {
+            if (rePassword.value.length < 4) {
+                rePasswordError.textContent = 'POOR (less than 4 characters)';
+            } else if (rePassword.value !== password.value) {
+                rePasswordError.textContent = 'MISMATCH (passwords do not match)';
+            } else {
+                rePasswordError.textContent = '';
+            }
+        });
+
+        age.addEventListener('input', () => {
+            if (age.value < 12) {
+                ageError.textContent = 'POOR (less than 12)';
+            } else {
+                ageError.textContent = '';
+            }
+        });
+
+        phoneNumber.addEventListener('input', () => {
+            if (phoneNumber.value.length < 10) {
+                phoneNumberError.textContent = 'POOR (less than 10 digits)';
+            } else {
+                phoneNumberError.textContent = '';
+            }
+        });
+
+        address.addEventListener('input', () => {
+            if (address.value.length < 10) {
+                addressError.textContent = 'POOR (less than 10 characters)';
+            } else {
+                addressError.textContent = '';
+            }
+        });
+
+        state.addEventListener('input', () => {
+            if (state.value.length < 4) {
+                stateError.textContent = 'POOR (less than 4 characters)';
+            } else {
+                stateError.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>

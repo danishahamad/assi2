@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css'>
+    <link rel='stylesheet prefetch' href='//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css'>
+    <title>Task6</title>
+    <style>
+        #success_message{ display: none;}
+        /* Center the button and add background color */
+        .center-button {
+            text-align: center;
+            background-color: #ff0000; /* Dark pink color */
+        }
+        /* Make the Submit button full width */
+        .btn-full-width {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+           <fieldset>
+              <!-- Form Name -->
+              <legend>Task 6</legend>
+              <!-- Text input-->
+              <div class="form-group">
+                 <label class="col-md-4 control-label">Name</label>  
+                 <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                       <input  name="name" placeholder="Name" class="form-control"  type="text">
+                    </div>
+                 </div>
+              </div>
+              <!-- Text input-->
+              <div class="form-group">
+                 <label class="col-md-4 control-label">E-Mail</label>  
+                 <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                       <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+                    </div>
+                 </div>
+              </div>
+              <!-- Password input-->
+              <div class="form-group">
+                 <label class="col-md-4 control-label">Password</label>  
+                 <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                       <input name="password" placeholder="Password" class="form-control"  type="password">
+                    </div>
+                 </div>
+              </div>
+              <!-- Hobbies input with count -->
+              <div class="form-group">
+                 <label class="col-md-4 control-label">Hobbies</label>
+                 <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                       <input name="hobbies_count" id="hobbies_count" class="form-control"  type="number" min="0" value="0">
+                    </div>
+                 </div>
+              </div>
+              
+              <!-- Centered Submit Button with Dark Pink Background -->
+              <div class="form-group center-button">
+                 <div class="col-md-13">
+                    <button type="button" class="btn btn-danger btn-full-width" id="submit_button">Submit</button>
+                 </div>
+              </div>
+           </fieldset>
+        </form>
+     </div>
+     
+     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+<script>
+$(document).ready(function() {
+    $('#contact_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            name: {
+                validators: {
+                        stringLength: {
+                        min: 2,
+                    },
+                        notEmpty: {
+                        message: 'Please supply your name'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please supply your email address'
+                    },
+                    emailAddress: {
+                        message: 'Please supply a valid email address'
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please supply a password'
+                    },
+                    stringLength: {
+                        min: 6,
+                        message: 'Password must be at least 6 characters long'
+                    }
+                }
+            },
+            hobbies_count: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter the number of hobbies'
+                    },
+                    integer: {
+                        message: 'Please enter a valid number'
+                    }
+                }
+            }
+        }
+    })
+    .on('success.form.bv', function(e) {
+        $('#success_message').slideDown({ opacity: "show" }, "slow");
+        $('#contact_form').data('bootstrapValidator').resetForm();
+        e.preventDefault();
+        var $form = $(e.target);
+        var bv = $form.data('bootstrapValidator');
+        $.post($form.attr('action'), $form.serialize(), function(result) {
+            console.log(result);
+        }, 'json');
+    });
+
+    // Handle increment and decrement buttons for hobbies count
+    $('#increment_hobbies').click(function() {
+        var countInput = $('#hobbies_count');
+        var currentCount = parseInt(countInput.val());
+        countInput.val(currentCount + 1);
+    });
+
+    $('#decrement_hobbies').click(function() {
+        var countInput = $('#hobbies_count');
+        var currentCount = parseInt(countInput.val());
+        if (currentCount > 0) {
+            countInput.val(currentCount - 1);
+        }
+    });
+
+    // Handle form submission when the "Submit" button is clicked
+    $('#submit_button').click(function() {
+        $('#contact_form').submit();
+    });
+});
+</script>
+</body>
+</html>

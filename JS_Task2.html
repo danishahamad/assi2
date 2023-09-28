@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2</title>
+</head>
+<body>
+    <p id="p1"></p>
+
+    <script>
+        function sortStringAlphabetically(inputString) {
+            // Convert the input string to an array of characters
+            const charArray = inputString.split('');
+
+            // Sort the characters in alphabetical order
+            const sortedArray = charArray.sort();
+
+            // Join the sorted characters back into a string
+            const sortedString = sortedArray.join('');
+
+            return sortedString;
+        }
+
+        const userInput = prompt("Enter a string to sort alphabetically:");
+        if (userInput) {
+            const result = sortStringAlphabetically(userInput);
+            document.getElementById("p1").innerHTML = "Sorted Output: " + result;
+        } else {
+            document.getElementById("p1").innerHTML = "Invalid input. Please enter a string.";
+        }
+
+
+    </script>
+</body>
+</html>

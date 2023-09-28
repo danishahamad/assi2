@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 7</title>
+    <style>
+        .center-content {
+            text-align: center;
+        }
+
+        #para-text {
+            font-size: 24px; /* Increase the font size to 24px */
+            color: blue; /* Set the text color to blue */
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <img id="myimg" src="train.png" />
+        <div class="center-content">
+            <p id="para-text">Click the following buttons to handle animation</p>
+            <input type="button" value="Start" onclick="startTrain();" />
+            <input type="button" value="Stop" onclick="stopTrain();" />
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        var img = null;
+        var intervalId = null;
+        var isMoving = false;
+
+        function init() {
+            img = document.getElementById('myimg');
+            img.style.position = 'relative';
+            img.style.left = '50px';
+        }
+
+        function startTrain() {
+            if (!isMoving) {
+                intervalId = setInterval(moveRight, 100);
+                isMoving = true;
+            }
+        }
+
+        function stopTrain() {
+            if (isMoving) {
+                clearInterval(intervalId);
+                isMoving = false;
+            }
+        }
+
+        function moveRight() {
+            img.style.left = parseInt(img.style.left) + 5 + 'px';
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1</title>
+</head>
+<body>
+    <p id="p1"></p>
+
+    <script>
+        function reverseNumber(number) {
+            // Convert the number to a string
+            const numberString = number.toString();
+
+            // Split the string into an array of characters, reverse it, and join it back into a string
+            const reversedString = numberString.split('').reverse().join('');
+
+            // Parse the reversed string as an integer
+            const reversedNumber = parseInt(reversedString, 10);
+
+            return reversedNumber;
+        }
+
+            // Example usage with user input:
+        const userInput = prompt("Enter a number to reverse:");
+        const x = parseInt(userInput);
+
+        if (!isNaN(x)) {
+            const reversedX = reverseNumber(x);
+
+            document.getElementById("p1").innerHTML = "Reversed Output: " + reversedX;
+        } else {
+            document.getElementById("p1").innerHTML = "Invalid input. Please enter a valid number.";
+        }
+    </script>
+</body>
+</html>
